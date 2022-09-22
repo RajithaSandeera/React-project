@@ -1,66 +1,40 @@
 import React from 'react';
 import '../../App.css';
-import './css/SignUp.css';
+import './css/Login.css';
 import {useState} from 'react';
 
 
 
  function Login() {
-
-const [email,setEmail] = useState('');
-const [password, setPassword] = useState('');
-
-
-async function loginUser(event){
-  event.preventDefault()
-  const response = await fetch('http://localhost:1337/api/login',{
-    method:'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      
-      email,
-      password,
-    }),
-  })
-  const data = await response.json()
-
-  if(data.user){
-    localStorage.setItem('token',data.user) 
-    alert('login sucessful')
-    window.location.href = '/Dashboard'
-  }
-  else{
-    alert('please check the username and password')
-  }
-  console.log(data)
-}
-  return (
-
-    
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={loginUser}>
-    
-        <input value={email}
-          onChange={(e) => setEmail(e.target.value)}
-            type="email"
-           placeholder="Email">
-        </input>
-        <br/>
-        <input value={password}
-          onChange={(e) => setPassword(e.target.value)}
-            type="password"
-           placeholder="Password">
-        </input>
-        <br/>
-        <input type="submit" value="Login"/>
-      </form>
+return(
+  <div className='Login'>
+  <div className='container py-5'>
+    <div className='row justify-content-center'>
+      <div className='col-md-6'>
+        <div className='card'>
+          <div className='card-header'>
+            <h4>Login</h4>
+          </div>
+          <div className='card-body'>
+            <form>
+              <div className='form-group mb-3'>
+                <label>Email ID</label>
+                <input type="text" name="email" className='form-control' value=''></input>
+              </div>
+              <div className='form-group mb-3'>
+                <label>Password</label>
+                <input type="text" name="Password" className='form-control' value=''></input>
+              </div>
+              <div className='form-group mb-3'>
+                <button type="submit" className='btn btn-primary'>Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
 
- 
-
-);
-}
-export default Login;
+  </div>
+  </div>
+  )}
+  export default Login;
