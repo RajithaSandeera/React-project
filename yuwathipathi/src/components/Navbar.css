@@ -17,6 +17,17 @@
     height: 80px;
     max-width: 1500px;
   }
+  .navbar-containe{
+    display: fle;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    max-width: 1500px;
+  }
+   .nav-ite{
+    /* height: 0px; */
+  } 
+  
   
   .navbar-logo {
     color: #fff;
@@ -48,6 +59,7 @@
   .nav-item {
     height: 80px;
   }
+  
   
   .nav-links {
     color: #fff;
@@ -154,5 +166,8 @@
       background: #fff;
       color: #242424;
       transition: 250ms;
+    }
+    .authLogout{
+      
     }
   }

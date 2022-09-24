@@ -56,7 +56,7 @@ export default function SignUp(){
           <div className='registerForm'>
             <div className='register'>
              <div className='col-1'> 
-             <h2>Sign In</h2>
+             <h2>Sign Up</h2>
              <span>Register and Enjoy our service</span>
             
              <form  id='form' className="flex flex-col" onSubmit={registerSubmit}>
