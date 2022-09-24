@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
-import { Link } from 'react-router-dom';
+import { Link , useHistory } from 'react-router-dom';
+
 import './Navbar.css';
+import axios from 'axios';
+import swal from 'sweetalert';
+
 
 function Navbar() {
+
+  const history = useHistory();
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
@@ -24,6 +30,51 @@ function Navbar() {
 
   window.addEventListener('resize', showButton);
 
+
+  const logoutButton = (e) =>{
+    e.preventDefault();
+
+    axios.post(`/api/logout`).then(res =>{
+      if(res.data.status == 200)
+      {
+
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('auth_name');
+        swal("Success",res.data.message,"success");
+        history.push('/'); 
+      }
+    
+    });
+  }
+
+  var AuthButton = '';
+  if(!localStorage.getItem('auth_token'))
+  {
+    AuthButton = (
+      <nav className='navbar'>
+    <div className='navbar-containe'>
+        <li className='nav-ite'>
+        <Link to='/Login' className='nav-links' onClick={closeMobileMenu}>Login</Link> 
+      </li>
+      </div>
+      <ul/>
+      
+      {button && <Button buttonStyle='btn--outline'>SignUp</Button>}
+      
+    
+      </nav>
+    ); 
+  }
+  else
+  {
+    AuthButton = (
+      
+      <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+      {button && <Button  onClick={logoutButton} buttonStyle='btn--outline'>Logout</Button>}
+      </ul>
+      
+    ); 
+  }
   return (
     <>
       <nav className='navbar'>
@@ -59,19 +110,12 @@ function Navbar() {
                 About Us
               </Link>
             </li>
-            <li className='nav-item'>
-              <Link
-                to='/Login'
-                className='nav-links'
-                onClick={closeMobileMenu}
-              >
-                Login
-              </Link>
-            </li>
-           
+            
           </ul>
-          {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>}
+           {/* {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>}  */}
+       
         </div>
+        {AuthButton}
       </nav>
     </>
   );
