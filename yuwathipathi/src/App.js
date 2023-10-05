@@ -1,11 +1,11 @@
 import React from 'react';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
-import ServiceGroom from './components/ServiceGroom';
-import ServiceBride from './components/ServiceBride';
+import ServiceGroom from './components/ServiceGroom/ServiceGroom';
+import ServiceBride from './components/ServiceBride/ServiceBride';
 import Products from './pages/Products';
 import SignUp from './pages/SignUp';
 import  Login from './pages/Login';
