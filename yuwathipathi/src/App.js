@@ -3,13 +3,13 @@ import Navbar from './components/Navbar';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Home from './components/pages/Home';
+import Home from './pages/Home';
 import ServiceGroom from './components/ServiceGroom';
 import ServiceBride from './components/ServiceBride';
-import Products from './components/pages/Products';
-import SignUp from './components/pages/SignUp';
-import  Login from './components/pages/Login';
-import  Dashboard from './components/pages/Dashboard';
+import Products from './pages/Products';
+import SignUp from './pages/SignUp';
+import  Login from './pages/Login';
+import  Dashboard from './pages/Dashboard';
 import axios from 'axios';
 import UserDetails from './components/UserDetails/UserDetails';
 axios.defaults.withCredentials = true;

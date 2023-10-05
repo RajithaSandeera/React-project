@@ -1,5 +1,4 @@
 import React,{useState} from 'react';
-import '../../App.css';
 import './css/Login.css';
 import axios from 'axios';
 import swal from 'sweetalert';

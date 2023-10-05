@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import styles from './'
+import './css/SignUp.css';
 import bgImg from '../assets/img1.jpg';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
