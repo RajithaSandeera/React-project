@@ -1,16 +1,17 @@
 import React from 'react';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Home from './components/pages/Home';
-import Servicegroom from './components/pages/Service-groom';
-import Servicebride from './components/pages/Service-bride';
-import Products from './components/pages/Products';
-import SignUp from './components/pages/SignUp';
-import  Login from './components/pages/Login';
-import  Dashboard from './components/pages/Dashboard';
+import Home from './pages/Home';
+import ServiceGroom from './components/ServiceGroom/ServiceGroom';
+import ServiceBride from './components/ServiceBride/ServiceBride';
+import Products from './pages/Products';
+import SignUp from './pages/SignUp';
+import  Login from './pages/Login';
+import  Dashboard from './pages/Dashboard';
 import axios from 'axios';
+import UserDetails from './components/UserDetails/UserDetails';
 axios.defaults.withCredentials = true;
 
 axios.defaults.baseURL = "http://localhost:8000/";
@@ -32,12 +33,14 @@ function App() {
         <Navbar />
         <Route>
           <Route path='/' exact component={Home} />
-          <Route path='/service-bride' component={Servicebride} />
-          <Route path='/service-groom' component={Servicegroom} />
+          <Route path='/service-bride' component={ServiceBride} />
+          <Route path='/service-groom' component={ServiceGroom} />
           <Route path='/products' component={Products} /> 
           <Route path='/signUp' component={SignUp} /> 
           <Route path='/login' component={Login} />  
           <Route path='/Dashboard' component={Dashboard} />  
+          <Route path='/service' component={UserDetails} />  
+
         </Route>
       </Router>
     </>
