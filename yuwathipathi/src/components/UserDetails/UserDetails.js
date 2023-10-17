@@ -6,8 +6,8 @@ import {
     FormControl,
     Select,
     Card,
-    Item,
-    TextField,
+    Alert,
+    TextField,Button,
     FormLabel,
     MenuItem, Grid,
 } from '@mui/material'
@@ -18,10 +18,9 @@ const UserDetails = () => {
     // const [value, setValue] = React.useState(dayjs('2022-04-17'));
     const SESSION_CREATE_STEPS = ['Personal', 'Parents', 'Private', 'Review & Pay']
 
-    const [religion, setReligion] = React.useState();
-    const handleChange = (event) => {
-        setReligion(event.target.value);
-    };
+  
+    
+
     const Buddhist = 'Buddhist';
     const Christian = 'Christian';
     const Islam = 'Islam';
@@ -64,15 +63,65 @@ const UserDetails = () => {
     const Kalutara = 'Kalutara';
     const SriLanka = 'SriLanka';
     const India = 'India';
+    
+    const [religion, setReligion] = React.useState();
+    const [religionFa, setReligionFa] = React.useState();
+    const [religionMo, setReligionMo] = React.useState();
+
+    const [gender, setGender] = React.useState();
+
+    const [nation, setNation] = React.useState();
+    const [nationFa, setNationFa] = React.useState();
+    const [nationMa, setNationMa] = React.useState();
+
+    const [marriage, setMarriage] = React.useState();
+    const [height, setHeight] = React.useState();
+    const [district, setDistrict] = React.useState();
+    const [country, setCountry] = React.useState();
 
 
+    const handleReligion = (event) => {
+        setReligion(event.target.value);
+    };
+    const handleReligionFa = (event) => {
+        setReligionFa(event.target.value);
+    };
+    const handleReligionMo = (event) => {
+        setReligionMo(event.target.value);
+    };
+
+    const handleGender = (event) => {
+        setGender(event.target.value);
+    };
+
+    const handleNation = (event) => {
+        setNation(event.target.value);
+    }; const handleNationFa = (event) => {
+        setNationFa(event.target.value);
+    }; const handleNationMa = (event) => {
+        setNationMa(event.target.value);
+    };
 
 
+    const handleMarriage = (event) => {
+        setMarriage(event.target.value);
+    };
+    const handleHeight = (event) => {
+        setHeight(event.target.value);
+    }
 
+    const handleDistrict = (event) => {
+        setDistrict(event.target.value);
+    }
+
+    const handleCountry = (event) => {
+        setCountry(event.target.value);
+    }
 
     return (
         <React.Fragment>
             <Container sx={{ maxWidth: 500, maxHeight: 800, mt: 4, pt: 4 }}>
+            <form action="/action_page.php" method="get" id="formDetails">
                 <Box>
                     <Card sx={{ m: 4 }}>
                         <Typography
@@ -104,9 +153,8 @@ const UserDetails = () => {
                                     <Select
                                         labelId="demo-simple-select-label"
                                         value={religion}
-                                        onChange={handleChange}
-                                        // sx={{width: '230px' }}
-                                        sx={{  ml: 4.5, mb: 2,  width: '50%', textAlign: 'left' }}
+                                        onChange={handleReligion}
+                                        sx={{ ml: 4.5, mb: 2, width: '50%', textAlign: 'left' }}
 
                                     >
                                         <MenuItem value={Buddhist}>Buddhist</MenuItem>
@@ -124,9 +172,9 @@ const UserDetails = () => {
                                     <FormLabel>Gender</FormLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
-                                        value={religion}
-                                        onChange={handleChange}
-                                        sx={{  ml: 4.5, mb: 2,  width: '50%', textAlign: 'left' }}
+                                        value={gender}
+                                        onChange={handleGender}
+                                        sx={{ ml: 4.5, mb: 2, width: '50%', textAlign: 'left' }}
 
 
                                     >
@@ -141,9 +189,9 @@ const UserDetails = () => {
                                     <FormLabel>Ethnics</FormLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
-                                        value={religion}
-                                        onChange={handleChange}
-                                        sx={{  ml: 5, mb: 2, pl: 2,  width: '50%', textAlign: 'left' }}
+                                        value={nation}
+                                        onChange={handleNation}
+                                        sx={{ ml: 5, mb: 2, pl: 2, width: '50%', textAlign: 'left' }}
 
 
                                     >
@@ -161,9 +209,9 @@ const UserDetails = () => {
                                     <FormLabel>Civil State</FormLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
-                                        value={religion}
-                                        onChange={handleChange}
-                                        sx={{  ml: 2, mb: 2,  width: '50%', textAlign: 'left' }}
+                                        value={marriage}
+                                        onChange={handleMarriage}
+                                        sx={{ ml: 2, mb: 2, width: '50%', textAlign: 'left' }}
 
 
                                     >
@@ -176,9 +224,9 @@ const UserDetails = () => {
                                     <FormLabel>Height</FormLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
-                                        value={religion}
-                                        onChange={handleChange}
-                                        sx={{  ml: 5.6, mb: 2,  width: '50%', textAlign: 'left' }}
+                                        value={height}
+                                        onChange={handleHeight}
+                                        sx={{ ml: 5.6, mb: 2, width: '50%', textAlign: 'left' }}
 
 
                                     >
@@ -218,8 +266,8 @@ const UserDetails = () => {
                             </Grid>
                         </FormControl>
                     </Card>
-                    </Box>
-                    <Box>
+                </Box>
+                <Box>
                     <Card sx={{ m: 4 }}>
                         <Typography
                             sx={{ p: 4, fontWeight: 600 }}>
@@ -233,7 +281,7 @@ const UserDetails = () => {
                                         required
                                         id="outlined-required"
                                         placeholder='City'
-                                        sx={{  ml: 8, mb: 2,  width: '58%', textAlign: 'left' }}
+                                        sx={{ ml: 8, mb: 2, width: '58%', textAlign: 'left' }}
 
                                     />
                                 </Grid>
@@ -242,8 +290,8 @@ const UserDetails = () => {
                                     <Select
                                         labelId="demo-simple-select-label"
                                         value={religion}
-                                        onChange={handleChange}
-                                        sx={{  ml: 0.5, mb: 2,  width: '58%', textAlign: 'left' }}
+                                        onChange={handleReligion}
+                                        sx={{ ml: 0.5, mb: 2, width: '58%', textAlign: 'left' }}
 
 
                                     >
@@ -258,8 +306,8 @@ const UserDetails = () => {
                                     <FormLabel>State/ District</FormLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
-                                        value={religion}
-                                        onChange={handleChange}
+                                        value={district}
+                                        onChange={handleDistrict}
                                         sx={{ ml: 3, mb: 2, width: '230px' }}
 
                                     >
@@ -301,8 +349,239 @@ const UserDetails = () => {
                         </FormControl>
 
                     </Card>
+                    <Card sx={{ m: 4 }}>
+                        <Typography
+                            sx={{ p: 4, fontWeight: 600 }}>
+                            Parents Details(Father)
+                        </Typography>
+                        <FormControl sx={{ pl: 2 }}>
+                            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                            <Grid item xs={6}>
+                                    <FormLabel>Ethnics</FormLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        value={nationFa}
+                                        onChange={handleNationFa}
+                                        sx={{ ml: 5, mb: 2, pl: 2, width: '50%', textAlign: 'left' }}
 
-                </Box>
+
+                                    >
+                                        <MenuItem value={Sinhalese}>Sinhalese</MenuItem>
+                                        <MenuItem value={Tamil}>Tamil</MenuItem>
+                                        <MenuItem value={Muslim}>Muslim</MenuItem>
+                                        <MenuItem value={Burger}>Burger</MenuItem>
+                                        <MenuItem value={Other}>Other</MenuItem>
+
+
+
+                                    </Select>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormLabel>Caste</FormLabel>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        placeholder='Caste'
+                                        sx={{ ml: 8, mb: 2, width: '58%', textAlign: 'left' }}
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormLabel>Religion</FormLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        value={religionFa}
+                                        onChange={handleReligionFa}
+                                        sx={{ ml: 4.5, mb: 2, width: '50%', textAlign: 'left' }}
+
+                                    >
+                                        <MenuItem value={Buddhist}>Buddhist</MenuItem>
+                                        <MenuItem value={Christian}>Christian</MenuItem>
+                                        <MenuItem value={Islam}>Islam</MenuItem>
+                                        <MenuItem value={Agnostic}>Agnostic</MenuItem>
+                                        <MenuItem value={Catholic}>Catholic</MenuItem>
+                                        <MenuItem value={None}>None</MenuItem>
+                                        <MenuItem value={Other}>Other</MenuItem>
+
+
+                                    </Select>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormLabel>Profession</FormLabel>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        placeholder='Profession'
+                                        sx={{ ml: 8, mb: 2, width: '58%', textAlign: 'left' }}
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormLabel>Country of Residency</FormLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        value={country}
+                                        onChange={handleCountry}
+                                        sx={{ ml: 0.5, mb: 2, width: '58%', textAlign: 'left' }}
+                                    >
+                                        <MenuItem value={SriLanka}>Sri Lanka</MenuItem>
+                                        <MenuItem value={India}>India</MenuItem>
+                                        <MenuItem value={Other}>other</MenuItem>
+
+
+                                    </Select>
+                                </Grid>
+                            </Grid>
+                        </FormControl>
+
+                    </Card>
+                    <Card sx={{ m: 4 }}>
+                        <Typography
+                            sx={{ p: 4, fontWeight: 600 }}>
+                            Parents Details(Mother)
+                        </Typography>
+                        <FormControl sx={{ pl: 2 }}>
+                            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                            <Grid item xs={6}>
+                                    <FormLabel>Ethnics</FormLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        value={nationMa}
+                                        onChange={handleNationMa}
+                                        sx={{ ml: 5, mb: 2, pl: 2, width: '50%', textAlign: 'left' }}
+
+
+                                    >
+                                        <MenuItem value={Sinhalese}>Sinhalese</MenuItem>
+                                        <MenuItem value={Tamil}>Tamil</MenuItem>
+                                        <MenuItem value={Muslim}>Muslim</MenuItem>
+                                        <MenuItem value={Burger}>Burger</MenuItem>
+                                        <MenuItem value={Other}>Other</MenuItem>
+
+
+
+                                    </Select>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormLabel>Caste</FormLabel>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        placeholder='Caste'
+                                        sx={{ ml: 8, mb: 2, width: '58%', textAlign: 'left' }}
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormLabel>Religion</FormLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        value={religionMo}
+                                        onChange={handleReligionMo}
+                                        sx={{ ml: 4.5, mb: 2, width: '50%', textAlign: 'left' }}
+
+                                    >
+                                        <MenuItem value={Buddhist}>Buddhist</MenuItem>
+                                        <MenuItem value={Christian}>Christian</MenuItem>
+                                        <MenuItem value={Islam}>Islam</MenuItem>
+                                        <MenuItem value={Agnostic}>Agnostic</MenuItem>
+                                        <MenuItem value={Catholic}>Catholic</MenuItem>
+                                        <MenuItem value={None}>None</MenuItem>
+                                        <MenuItem value={Other}>Other</MenuItem>
+
+
+                                    </Select>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormLabel>Profession</FormLabel>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        placeholder='Profession'
+                                        sx={{ ml: 8, mb: 2, width: '58%', textAlign: 'left' }}
+                                    />
+                                </Grid>
+                            </Grid>
+                        </FormControl>
+
+                    </Card>
+                    <Card sx={{ m: 4 }}>
+                        <Typography
+                            sx={{ p: 4, fontWeight: 600 }}>
+                            Horoscope Details
+                        </Typography>
+                        <Alert severity="info" sx={{ marginBottom: '3rem',maxHeight:'5%', width:'90%',ml: 3 }}>
+                                    Your Horoscope details may be accessible to your matches(i.e Both parties should show interest towards each other)
+                                </Alert>
+                        <FormControl sx={{ pl: 2 }}>
+                            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                <Grid item xs={6}>
+                                    <FormLabel>Birthday</FormLabel>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        placeholder='Birthday'
+                                        sx={{ ml: 8, mb: 2, width: '58%', textAlign: 'left' }}
+
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormLabel>Birth Country</FormLabel>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        placeholder='Caste'
+                                        sx={{ ml: 8, mb: 2, width: '58%', textAlign: 'left' }}
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormLabel>Birth City</FormLabel>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        placeholder='City'
+                                        sx={{ ml: 8, mb: 2, width: '58%', textAlign: 'left' }}
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormLabel>Birth Time</FormLabel>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        placeholder='Birth Time'
+                                        sx={{ ml: 8, mb: 2, width: '58%', textAlign: 'left' }}
+                                    />
+                                </Grid>
+                                <Alert severity="info" sx={{ m: '2rem',maxHeight:'5%', width:'90%',ml: 3 }}>
+                                    Your phone number will be not be visible publicly. You can choose to share your number when you match
+                                </Alert>
+                                <Grid item xs={6}>
+                                    <FormLabel>Phone Number</FormLabel>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        placeholder='Phone Number'
+                                        sx={{ ml: 8, mb: 2, width: '58%', textAlign: 'left' }}
+                                    />
+                                </Grid>
+                                <Grid item xs={6} sx={{ mb: 3}}>
+                                    <FormLabel>Email</FormLabel>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        placeholder='Email'
+                                        sx={{ ml: 8, mb: 5, width: '58%', textAlign: 'left' }}
+                                    />
+                                </Grid>
+                                </Grid >
+                        <Button type="submit" form="formDetails" value="submit" variant="contained" sx={{ m: 4, maxWidth: '20%', justifyContent: 'center', marginLeft: 'auto' }}>Submit and Save</Button>
+                                
+                        </FormControl>
+
+                    </Card>
+
+                   
+                    </Box>
+                    
+                </form>
+               
             </Container>
         </React.Fragment >
     )
