@@ -1,0 +1,24 @@
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { NavLink} from 'react-router-dom'
+import Login from '../pages/Login'
+
+const ProtectedRoute = () => {
+  const { userInfo } = useSelector((state) => state.auth)
+
+  // show unauthorized screen if no user is found in redux store
+  if (!userInfo) {
+    return (
+      <div className='unauthorized'>
+        <h1>Unauthorized :</h1>
+        <span>
+          <NavLink to='/login'>Login</NavLink> to gain access
+        </span>
+      </div>
+    )
+  }
+
+  // returns child route elements
+  return <Login />
+}
+export default ProtectedRoute

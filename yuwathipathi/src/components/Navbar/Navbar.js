@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
 import { Button } from '../Button/Button';
-import { Link , useHistory } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { useGetUserDetailsQuery } from '../../app/services/auth/authService';
+import { logout, setCredentials } from '../../features/auth/authSlice';
 import './Navbar.css';
-import axios from 'axios';
-import swal from 'sweetalert';
-
 
 function Navbar() {
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
-
+  
+  const { userInfo } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
+  const { data, isFetching } = useGetUserDetailsQuery('userDetails', {
+    pollingInterval: 900000, // 15mins
+  })
   const showButton = () => {
     if (window.innerWidth <= 960) {
       setButton(false);
@@ -23,57 +27,35 @@ function Navbar() {
       setButton(true);
     }
   };
-
   useEffect(() => {
-    showButton();
-  }, []);
+    if(data){
+      dispatch(setCredentials(data))
+    }
+  }, [data, dispatch]);
 
   window.addEventListener('resize', showButton);
-
-
-  const logoutButton = (e) =>{
-    e.preventDefault();
-
-    axios.post(`/api/logout`).then(res =>{
-      if(res.data.status == 200)
-      {
-
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('auth_name');
-        swal("Success",res.data.message,"success");
-        history.push('/'); 
-      }
-    
-    });
-  }
-
   var AuthButton = '';
-  if(!localStorage.getItem('auth_token'))
-  {
+  console.log('fet', userInfo)
+  if (userInfo === null) {
     AuthButton = (
       <nav className='navbar'>
-    <div className='navbar-containe'>
-        <li className='nav-ite'>
-        <Link to='/Login' className='nav-links' onClick={closeMobileMenu}>Login</Link> 
-      </li>
-      </div>
-      <ul/>
-      
-      {button && <Button buttonStyle='btn--outline'>SignUp</Button>}
-      
-    
-      </nav>
-    ); 
+        <div className='navbar-container'>
+          <li className='nav-ite'>
+            <Link to='/Login' className='nav-links' onClick={closeMobileMenu}>Login</Link>
+          </li>
+        </div>
+        <ul />
+
+        {button && <Button buttonStyle='btn--outline'>Sign Up</Button>}
+     </nav>
+    );
   }
-  else
-  {
+  else {
     AuthButton = (
-      
       <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-      {button && <Button  onClick={logoutButton} buttonStyle='btn--outline'>Logout</Button>}
+        {button && <Button buttonStyle='btn--outline' onClick={() => dispatch(logout())}>Logout</Button>}
       </ul>
-      
-    ); 
+    );
   }
   return (
     <>
@@ -110,10 +92,10 @@ function Navbar() {
                 About Us
               </Link>
             </li>
-            
+
           </ul>
-           {/* {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>}  */}
-       
+          {/* {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>}  */}
+
         </div>
         {AuthButton}
       </nav>

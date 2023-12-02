@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 const backendURL = 'http://localhost:9000'
 
+//this is for register
 export const registerUser = createAsyncThunk(
   'auth/register',
   async ({ name, email, password }, { rejectWithValue }) => {
@@ -28,6 +29,7 @@ export const registerUser = createAsyncThunk(
   }
 )
 
+//This is for Login
 export const userLogin = createAsyncThunk(
   'auth/login',
   async ({ email, password }, { rejectWithValue }) => {
@@ -56,3 +58,5 @@ export const userLogin = createAsyncThunk(
     }
   }
 )
+
+

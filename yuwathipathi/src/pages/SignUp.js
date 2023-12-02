@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './css/SignUp.css';
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import bgImg from '../assets/img1.jpg';
 
 // import Error from '../components/Error'
@@ -14,13 +14,13 @@ const RegisterScreen = () => {
         (state) => state.auth
     )
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { register, handleSubmit } = useForm()
 
     useEffect(() => {
-        if (success) history.push('/login')
-        if (userInfo) history.push('/user-profile')
-    }, [history, userInfo, success])
+        if (success) navigate('/login')
+        if (userInfo) navigate('/user-profile')
+    }, [navigate, userInfo, success])
 
     const submitForm = (data) => {
         if (data.password !== data.confirmPassword) {

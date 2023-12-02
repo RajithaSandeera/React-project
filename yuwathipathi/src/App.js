@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Navbar from './components/Navbar/Navbar';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
 import ServiceGroom from './components/ServiceGroom/ServiceGroom';
@@ -10,39 +10,26 @@ import Products from './pages/Products';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import axios from 'axios';
 import UserDetails from './components/UserDetails/UserDetails';
-
-axios.defaults.withCredentials = true;
+import ProtectedRoute from './routing/ProtectedRoutes';
 
 function App() {
-  const [apiResponse, setAPIResponse] = useState("");
-
-  const callAPI = () => {
-    fetch("http://localhost:9000/testAPI")
-      .then(res => res.text())
-      .then(res => setAPIResponse(res))
-      .catch(err => console.log(err));
-  };
-
-  useEffect(() => {
-    callAPI();
-  }, []); // Empty dependency array to run only once on mount
-
   return (
-    <>
-      <Router>
-        <Navbar />
-        <Route path='/' exact component={Home} />
-        <Route path='/service-bride' component={ServiceBride} />
-        <Route path='/service-groom' component={ServiceGroom} />
-        <Route path='/products' component={Products} />
-        <Route path='/signUp' component={SignUp} />
-        <Route path='/login' component={Login} />
-        <Route path='/dashboard' component={Dashboard} />
-        <Route path='/service' component={UserDetails} />
-      </Router>
-    </>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/service-bride' element={<ServiceBride />} />
+        <Route path='/service-groom' element={<ServiceGroom />} />
+        <Route path='/products' element={<Products />} />
+        <Route path='/signUp' element={<SignUp />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route element={<ProtectedRoute/>}>
+        <Route path='/service' element={<UserDetails />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 

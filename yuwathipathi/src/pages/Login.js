@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './css/Login.css';
 import axios from 'axios';
 import swal from 'sweetalert';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { userLogin } from '../features/auth/authAction'
@@ -12,13 +12,13 @@ import { userLogin } from '../features/auth/authAction'
 const Login = () => {
   const { loading, userInfo } = useSelector((state) => state.auth)
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   useEffect(() => {
     if (userInfo) {
-      history.push('/user-profile')
+      navigate('/service')
     }
-  }, [history, userInfo])
+  }, [navigate, userInfo])
   const submitLogin = (data) => {
     dispatch(userLogin(data))
   }

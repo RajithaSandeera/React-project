@@ -1,13 +1,13 @@
 import React from 'react'
 import jwt, { JsonWebTokenError } from 'jsonwebtoken'
-import {useHistory } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 
 
 const Dashboard =()=>{
 
     
-        const history = useHistory()
+        const navigate = useNavigate()
         const [quote, setQuote] = useState('');
         const [tempQuote, setTemptQuote] = useState('')
 
@@ -31,7 +31,7 @@ const Dashboard =()=>{
             const user = jwt.decode(token)
             if(!user){
                 localStorage.removeItem('token')
-                history.replace('/login')
+                navigate('/login')
             }
             else{
                 populateQuote()
