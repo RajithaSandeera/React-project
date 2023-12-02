@@ -1,88 +1,93 @@
-import React, {useState} from 'react';
+import React, { useEffect } from 'react';
 import './css/SignUp.css';
-import bgImg from '../assets/img1.jpg';
-import axios from 'axios';
+import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom';
-import swal from 'sweetalert';
+import bgImg from '../assets/img1.jpg';
 
+// import Error from '../components/Error'
+// import Spinner from '../components/Spinner'
+import { registerUser } from '../features/auth/authAction'
 
-
-export default function SignUp(){
-
-   const history = useHistory();
-
-    
-    const [registerInput, setRegister] = useState({
-        name:'',
-        email:'',
-        password:'',
-       
-        error_list:[],
-
-    });
-    const handleInput = (e) =>{
-        e.persist();
-        setRegister({...registerInput, [e.target.name]: e.target.value });
-    }
-
-    const registerSubmit = (e) =>{
-        e.preventDefault();
-    }
-
-    const data = {
-        name: registerInput.name,
-        email:registerInput.email,
-        password: registerInput.password,
-        
-    }
-    axios.get('/sanctum/csrf-cookie').then(response => {
-        axios.post(`/api/register`, data).then(res =>{
-            if(res.data.status === 200)
-                {
-                    localStorage.setItem('auth_token',res.data.token);
-                    localStorage.setItem('auth_name',res.data.username);
-                    swal("Success",res.data.message,"success");
-                    history.push('/');
-                }   
-            else{
-                    setRegister({...registerInput,error_list: res.data.validation_errors});
-                }
-        });
-    });
-
-
-    return(
-        <section>         
-          <div className='registerForm'>
-            <div className='register'>
-             <div className='col-1'> 
-             <h2>Sign Up</h2>
-             <span>Register and Enjoy our service</span>
-            
-             <form  id='form' className="flex flex-col" onSubmit={registerSubmit}>
-
-                <input type="text" name="name" onChange={handleInput} value={registerInput.name} placeholder='username'/>
-                <span>{registerInput.error_list.name}</span>
-                <input type="text" name="email" onChange={handleInput} value={registerInput.email} placeholder='email'/>
-                <span>{registerInput.error_list.email}</span>
-                <input type="text" name="password" onChange={handleInput} value={registerInput.password} placeholder='password'/>
-                <span>{registerInput.error_list.password}</span>
-                {/* <input type="text" name="confirmpassword" onChange={handleInput} value={registerInput.confirmPassword} placeholder='confirm password'/> */}
-                {/* <input type="text" name="mobile" onChange={handleInput} value={registerInput.mobile} placeholder='mobile'/> */}
-                <span>{registerInput.error_list.password}</span>
-
-                <button className='btn'>Sign In</button>
-             </form>
-             </div>
-                <div className='col-2'>
-
-                <a ><img alt="stack overflow" src={bgImg}></img></a>
-                </div>
-     
-            
-            </div>
-            </div>
-        </section>
-       
+const RegisterScreen = () => {
+    const { loading, userInfo, error, success } = useSelector(
+        (state) => state.auth
     )
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const { register, handleSubmit } = useForm()
+
+    useEffect(() => {
+        if (success) history.push('/login')
+        if (userInfo) history.push('/user-profile')
+    }, [history, userInfo, success])
+
+    const submitForm = (data) => {
+        if (data.password !== data.confirmPassword) {
+            alert('Password mismatch')
+        }
+        data.email = data.email.toLowerCase()
+        console.log(data)
+        dispatch(registerUser(data))
     }
+    return (
+        <div className='registerForm'>
+            <div className='register'>
+                <div className='col-1'>
+                    <h2>Sign Up</h2>
+                    <span>Register and Enjoy our service</span>
+                    <form id='form' className="flex flex-col" onSubmit={handleSubmit(submitForm)}>
+                        {/* {error && <Error>{error}</Error>} */}
+                        <div className='form-group'>
+                            <input
+                                type='text'
+                                className='form-input'
+                                placeholder='Username'
+                                {...register('name')}
+                                required
+                            />
+                        </div>
+                        <div className='form-group'>
+                            <input
+                                type='email'
+                                className='form-input'
+                                placeholder='Email'
+                                {...register('email')}
+                                required
+                            />
+                        </div>
+                        <div className='form-group'>
+                            <input
+                                type='password'
+                                className='form-input'
+                                placeholder='Password'
+                                {...register('password')}
+                                required
+                            />
+                        </div>
+                        <div className='form-group'>
+                            <input
+                                type='password'
+                                className='form-input'
+                                placeholder='Password'
+                                {...register('confirmPassword')}
+                                required
+                            />
+                        </div>
+                        <button type='submit' className='btn' disabled={loading}>
+                            {/* {loading ? <Spinner /> : 'Register'} */}
+                            Sign Up
+                        </button>
+                    </form>
+                </div>
+                <div className='col-2'>
+                    <a ><img alt="stack overflow" src={bgImg}></img></a>
+                </div>
+
+            </div>
+        </div>
+
+
+    )
+}
+export default RegisterScreen

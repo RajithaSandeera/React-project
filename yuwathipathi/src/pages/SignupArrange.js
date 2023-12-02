@@ -4,13 +4,13 @@ import SignUp from './SignUp2';
 
 
 const writing=()=>{
-const [username, setUsername ] = useState();
+const [name, setName ] = useState();
 
-console.log(username);
+console.log(name);
 return(
     <div>
         <form >
-            <FormInput placeholder="username" setUsername={setUsername}/>
+            <FormInput placeholder="username" setName={setName}/>
             <FormInput placeholder="username"></FormInput>
             <FormInput placeholder="username"></FormInput>
             <FormInput placeholder="username"></FormInput>

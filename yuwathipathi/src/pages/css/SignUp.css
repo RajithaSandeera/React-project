@@ -79,7 +79,30 @@ body{
   border-bottom-right-radius: 5px;
   display: none;
 }
+.form-group {
+  margin-bottom: 20px;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
 
+/* Styles for label */
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+
+/* Styles for input */
+.form-input {
+  width: calc(100% - 22px); 
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  /* Add any other styles you want for the input field */
+}
 @media screen and (min-width: 860px)  {
   .register .col-2 img{
     display: initial;
