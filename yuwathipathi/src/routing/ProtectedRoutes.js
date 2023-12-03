@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { NavLink} from 'react-router-dom'
+import { NavLink, Outlet} from 'react-router-dom'
 import Login from '../pages/Login'
 
 const ProtectedRoute = () => {
@@ -19,6 +19,6 @@ const ProtectedRoute = () => {
   }
 
   // returns child route elements
-  return <Login />
+  return <Outlet />
 }
 export default ProtectedRoute

@@ -30,6 +30,7 @@ function Navbar() {
   useEffect(() => {
     if(data){
       dispatch(setCredentials(data))
+      alert('NavData' + JSON.stringify(data))
     }
   }, [data, dispatch]);
 

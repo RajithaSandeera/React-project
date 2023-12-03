@@ -1,19 +1,18 @@
 
-// app/services/auth/authService.js
-// React-specific entry point to allow generating React hooks
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    // base url of backend API
-  backendURL : 'http://localhost:9000',
+    baseUrl: 'http://localhost:9000',
 
     // prepareHeaders is used to configure the header of every request and gives access to getState which we use to include the token from the store
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.userToken
+      const token = getState().auth.userInfo.access_token
       if (token) {
        // include token in req header
+    alert('data', + JSON.stringify(token))
+
         headers.set('authorization', `Bearer ${token}`)  
         return headers
       }
