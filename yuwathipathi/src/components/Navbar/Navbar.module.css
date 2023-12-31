@@ -171,3 +171,22 @@
       
     }
   }
+
+  .navItemDesign{
+    color: #fff;
+    text-transform:capitalize;
+    font-size:1.2rem;
+    padding:1.5rem;
+    text-decoration: none;
+  }
+  .navItemDesignSignUp{
+    color: #0e0d0d;
+    text-transform:capitalize;
+    font-size:0.9rem;
+    padding:0.8rem;
+    text-decoration: none;
+    background-color:white;
+    border:0.08px solid white;
+    border-radius:0.3rem;
+    
+  }

@@ -19,7 +19,7 @@ const RegisterScreen = () => {
 
     useEffect(() => {
         if (success) navigate('/login')
-        if (userInfo) navigate('/user-profile')
+        if (userInfo) navigate('/service')
     }, [navigate, userInfo, success])
 
     const submitForm = (data) => {

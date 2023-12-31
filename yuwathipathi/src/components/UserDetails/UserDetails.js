@@ -1,4 +1,8 @@
-import React from 'react'
+import React,{ useEffect } from 'react'
+import { logout, setCredentials, setUserToken } from '../../features/auth/authSlice'
+import { useGetUserDetailsQuery } from '../../app/services/auth/authService'
+import { useDispatch, useSelector } from 'react-redux'
+
 import {
     Box,
     Container,
@@ -15,6 +19,23 @@ import {
 // import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const UserDetails = () => {
+    const { userInfo } = useSelector((state) => state.authApi)
+    const dispatch = useDispatch()
+    const { data, isFetching, refetch } = useGetUserDetailsQuery('userDetails', {
+        pollingInterval: 9000,
+    });
+    const userToken = localStorage.getItem('userToken')
+        ? localStorage.getItem('userToken')
+        : null
+    useEffect(() => {
+        if (data) {
+            dispatch(setCredentials(data))
+        }
+        refetch()
+        dispatch(setUserToken(userToken))
+alert('userdetails')
+    }, [data, dispatch, userToken])
+
     // const [value, setValue] = React.useState(dayjs('2022-04-17'));
     const SESSION_CREATE_STEPS = ['Personal', 'Parents', 'Private', 'Review & Pay']
 
@@ -86,9 +107,7 @@ const UserDetails = () => {
         birthCity: '',
         birthTime: '',
         phoneNumber: '',
-        email:''
-
-
+        email: ''
     }
     const [formDetails, setFormDetails] = React.useState(INIT_USER_DETAILS);
 
@@ -135,9 +154,11 @@ const UserDetails = () => {
                     <Box>
                         <Card sx={{ m: 4 }}>
                             <Typography
-                                sx={{ p: 4, fontWeight: 600 }}>
+                                sx={{ pt: 4, pl: 4, fontWeight: 600, fontSize: '20px' }}>
                                 Basic
                             </Typography>
+                            <Alert severity="info" sx={{ m: '1rem', maxHeight: '5%', width: '80%', ml: 4 }}>
+                                Please fill these details, This will helpful yourself and others to find the best matching partner                                    </Alert>
                             <FormControl sx={{ pl: 2 }}>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                                     <Grid item xs={6}>
@@ -153,7 +174,7 @@ const UserDetails = () => {
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <FormLabel sx={{ ml:1.5}} >Last Name</FormLabel>
+                                        <FormLabel sx={{ ml: 1.5 }} >Last Name</FormLabel>
                                         <TextField
                                             name="lastName"
                                             value={formDetails.lastName}
@@ -187,15 +208,13 @@ const UserDetails = () => {
                                         </Select>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <FormLabel sx={{ ml:1.5}}>Gender</FormLabel>
+                                        <FormLabel sx={{ ml: 1.5 }}>Gender</FormLabel>
                                         <Select
                                             labelId="demo-simple-select-label"
                                             name="gender"
                                             value={formDetails.gender}
                                             onChange={handleForm}
                                             sx={{ ml: 4.5, mb: 2, width: '50%', textAlign: 'left' }}
-
-
                                         >
                                             <MenuItem value={Male}>Male</MenuItem>
                                             <MenuItem value={Female}>Female</MenuItem>
@@ -210,7 +229,7 @@ const UserDetails = () => {
                                             labelId="demo-simple-select-label"
                                             name="nation"
                                             value={formDetails.nation}
-
+                                            placeholder='religion'
                                             onChange={handleForm}
                                             sx={{ ml: 5.2, mb: 2, pl: 2, width: '50%', textAlign: 'left' }}
 
@@ -227,7 +246,7 @@ const UserDetails = () => {
                                         </Select>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <FormLabel sx={{ ml:1.5}}  >Civil State</FormLabel>
+                                        <FormLabel sx={{ ml: 1.5 }}  >Civil State</FormLabel>
                                         <Select
                                             labelId="demo-simple-select-label"
                                             name="marriage"
@@ -250,7 +269,7 @@ const UserDetails = () => {
                                             name="height"
                                             value={formDetails.height}
                                             onChange={handleForm}
-                                            
+
                                             sx={{ ml: 5.9, mb: 2, width: '50%', textAlign: 'left' }}
 
 
@@ -289,7 +308,7 @@ const UserDetails = () => {
                                         </Select>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <FormLabel sx={{ ml:1.5}} >Profession</FormLabel>
+                                        <FormLabel sx={{ ml: 1.5 }} >Profession</FormLabel>
                                         <TextField
                                             required
                                             id="outlined-required"
@@ -309,7 +328,7 @@ const UserDetails = () => {
                     <Box>
                         <Card sx={{ m: 4 }}>
                             <Typography
-                                sx={{ p: 4, fontWeight: 600 }}>
+                                sx={{ p: 4, fontWeight: 600, fontSize: '20px' }}>
                                 Residency
                             </Typography>
                             <FormControl sx={{ pl: 2 }}>
@@ -328,13 +347,13 @@ const UserDetails = () => {
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <FormLabel sx={{ ml:1}} >Country of Residency</FormLabel>
+                                        <FormLabel sx={{ ml: 1 }} >Country of Residency</FormLabel>
                                         <Select
                                             labelId="demo-simple-select-label"
                                             name="country"
                                             value={formDetails.country}
                                             onChange={handleForm}
-                                            
+
                                             sx={{ ml: 0.6, mb: 2, width: '57%', textAlign: 'left' }}
 
 
@@ -353,7 +372,7 @@ const UserDetails = () => {
                                             name="district"
                                             value={formDetails.district}
                                             onChange={handleForm}
-                                            
+
                                             sx={{ ml: 3.7, mb: 2, width: '230px' }}
 
                                         >
@@ -397,7 +416,7 @@ const UserDetails = () => {
                         </Card>
                         <Card sx={{ m: 4 }}>
                             <Typography
-                                sx={{ p: 4, fontWeight: 600 }}>
+                                sx={{ p: 4, fontWeight: 600, fontSize: '20px' }}>
                                 Parents Details(Father)
                             </Typography>
                             <FormControl sx={{ pl: 2 }}>
@@ -409,7 +428,7 @@ const UserDetails = () => {
                                             name="nationFa"
                                             value={formDetails.nationFa}
                                             onChange={handleForm}
-                                         
+
                                             sx={{ ml: 5, mb: 2, pl: 2, width: '50%', textAlign: 'left' }}
 
 
@@ -444,7 +463,7 @@ const UserDetails = () => {
                                             name="religionFa"
                                             value={formDetails.religionFa}
                                             onChange={handleForm}
-                                           
+
                                             sx={{ ml: 4.3, mb: 2, width: '50%', textAlign: 'left' }}
 
                                         >
@@ -479,7 +498,7 @@ const UserDetails = () => {
                                             name="countryFa"
                                             value={formDetails.countryFa}
                                             onChange={handleForm}
-                                            
+
                                             sx={{ ml: 0.5, mb: 2, width: '37%', textAlign: 'left' }}
                                         >
                                             <MenuItem value={SriLanka}>Sri Lanka</MenuItem>
@@ -495,7 +514,7 @@ const UserDetails = () => {
                         </Card>
                         <Card sx={{ m: 4 }}>
                             <Typography
-                                sx={{ p: 4, fontWeight: 600 }}>
+                                sx={{ p: 4, fontWeight: 600, fontSize: '20px' }}>
                                 Parents Details(Mother)
                             </Typography>
                             <FormControl sx={{ pl: 2 }}>
@@ -507,7 +526,7 @@ const UserDetails = () => {
                                             name="nationMo"
                                             value={formDetails.nationMo}
                                             onChange={handleForm}
-                                           
+
                                             sx={{ ml: 5, mb: 2, pl: 2, width: '50%', textAlign: 'left' }}
 
 
@@ -523,7 +542,7 @@ const UserDetails = () => {
                                         </Select>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <FormLabel sx={{ ml: 2}}>Caste</FormLabel>
+                                        <FormLabel sx={{ ml: 2 }}>Caste</FormLabel>
                                         <TextField
                                             required
                                             id="outlined-required"
@@ -543,7 +562,7 @@ const UserDetails = () => {
                                             name="religionMo"
                                             value={formDetails.religionMo}
                                             onChange={handleForm}
-                                            
+
                                             sx={{ ml: 4.5, mb: 2, width: '50%', textAlign: 'left' }}
 
                                         >
@@ -559,7 +578,7 @@ const UserDetails = () => {
                                         </Select>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <FormLabel sx={{ ml: 1}}>Profession</FormLabel>
+                                        <FormLabel sx={{ ml: 1 }}>Profession</FormLabel>
                                         <TextField
                                             required
                                             id="outlined-required"
@@ -578,7 +597,7 @@ const UserDetails = () => {
                         </Card>
                         <Card sx={{ m: 4 }}>
                             <Typography
-                                sx={{ p: 4, fontWeight: 600 }}>
+                                sx={{ p: 4, fontWeight: 600, fontSize: '20px' }}>
                                 Horoscope Details
                             </Typography>
                             <Alert severity="info" sx={{ marginBottom: '3rem', maxHeight: '5%', width: '90%', ml: 3 }}>

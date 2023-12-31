@@ -28,6 +28,9 @@ const authSlice = createSlice({
     setCredentials: (state, { payload }) => {
       state.userInfo = payload
     },
+    setUserToken: (state, action) => {
+      state.userInfo = action.payload
+    }
   },
   extraReducers: {
     // register user
@@ -56,8 +59,8 @@ const authSlice = createSlice({
     [userLogin.rejected]: (state, { payload }) => {
       state.loading = false
       state.error = payload
-    },
+    }
   },
 })
-export const { logout, setCredentials } = authSlice.actions
+export const { logout, setCredentials, setUserToken } = authSlice.actions
 export default authSlice.reducer

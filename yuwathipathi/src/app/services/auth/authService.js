@@ -9,11 +9,12 @@ export const authApi = createApi({
     // prepareHeaders is used to configure the header of every request and gives access to getState which we use to include the token from the store
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.userInfo.access_token
+      const token2 = localStorage.getItem('userToken')
       if (token) {
-       // include token in req header
-    alert('data', + JSON.stringify(token))
-
-        headers.set('authorization', `Bearer ${token}`)  
+        headers.set('authorization', `Bearer ${token}`)
+        return headers
+      } else {
+        headers.set('authorization', `Bearer ${token2}`)
         return headers
       }
     },
@@ -28,6 +29,4 @@ export const authApi = createApi({
   }),
 })
 
-// export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
 export const { useGetUserDetailsQuery } = authApi

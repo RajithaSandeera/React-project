@@ -19,7 +19,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route element={<ProtectedRoute />}>
         <Route path='/service-bride' element={<ServiceBride />} />
+        </Route>
         <Route path='/service-groom' element={<ServiceGroom />} />
         <Route path='/products' element={<Products />} />
         <Route path='/signUp' element={<SignUp />} />
