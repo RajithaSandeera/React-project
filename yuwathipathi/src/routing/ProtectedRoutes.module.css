@@ -1,0 +1,7 @@
+.unauthorized{
+  background-color: '#e6e9ff';
+   border-radius: '0.4rem';
+   display: 'flex';
+   justify-content: 'center';
+   height: 35rem;
+}
