@@ -151,15 +151,15 @@ alert('userdetails')
         <React.Fragment>
             <Container sx={{ maxWidth: 500, maxHeight: 800, mt: 4, pt: 4 }}>
                 <form action="/action_page.php" method="get" id="formDetails">
-                    <Box>
+                    <Box >
                         <Card sx={{ m: 4 }}>
                             <Typography
-                                sx={{ pt: 4, pl: 4, fontWeight: 600, fontSize: '20px' }}>
+                                sx={{ pt: 4, pl: 6, fontWeight: 600, fontSize: '20px' }}>
                                 Basic
                             </Typography>
-                            <Alert severity="info" sx={{ m: '1rem', maxHeight: '5%', width: '80%', ml: 4 }}>
+                            <Alert severity="info" sx={{ m: '1rem', maxHeight: '5%', width: '80%', ml: 6 }}>
                                 Please fill these details, This will helpful yourself and others to find the best matching partner                                    </Alert>
-                            <FormControl sx={{ pl: 2 }}>
+                            <FormControl sx={{ pl: 4 }}>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                                     <Grid item xs={6}>
                                         <FormLabel>First Name</FormLabel>
@@ -331,7 +331,7 @@ alert('userdetails')
                                 sx={{ p: 4, fontWeight: 600, fontSize: '20px' }}>
                                 Residency
                             </Typography>
-                            <FormControl sx={{ pl: 2 }}>
+                            <FormControl sx={{ pl: 4 }}>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                                     <Grid item xs={6}>
                                         <FormLabel>City</FormLabel>
@@ -419,7 +419,7 @@ alert('userdetails')
                                 sx={{ p: 4, fontWeight: 600, fontSize: '20px' }}>
                                 Parents Details(Father)
                             </Typography>
-                            <FormControl sx={{ pl: 2 }}>
+                            <FormControl sx={{ pl: 4 }}>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                                     <Grid item xs={6}>
                                         <FormLabel>Ethnics</FormLabel>
@@ -517,7 +517,7 @@ alert('userdetails')
                                 sx={{ p: 4, fontWeight: 600, fontSize: '20px' }}>
                                 Parents Details(Mother)
                             </Typography>
-                            <FormControl sx={{ pl: 2 }}>
+                            <FormControl sx={{ pl: 4 }}>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                                     <Grid item xs={6}>
                                         <FormLabel>Ethnics</FormLabel>
@@ -603,7 +603,7 @@ alert('userdetails')
                             <Alert severity="info" sx={{ marginBottom: '3rem', maxHeight: '5%', width: '90%', ml: 3 }}>
                                 Your Horoscope details may be accessible to your matches(i.e Both parties should show interest towards each other)
                             </Alert>
-                            <FormControl sx={{ pl: 2 }}>
+                            <FormControl sx={{ pl: 4 }}>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                                     <Grid item xs={6}>
                                         <FormLabel>Birthday</FormLabel>

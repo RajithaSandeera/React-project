@@ -1,4 +1,4 @@
-import React, {useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Container from '@mui/material/Container';
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -16,105 +16,128 @@ import WorkIcon from '@mui/icons-material/Work';
 import style from './ServiceBride.module.css'
 import LanguageIcon from '@mui/icons-material/Language';
 import maleImg from '../../assets/male.png';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import femaleImg from '../../assets/female.png';
 import { fetchUserDetails } from '../../features/auth/authAction';
+import moment from 'moment'
+
 
 
 const ServiceBride = () => {
+  const userDetails = useSelector(state => state.user.userInfo);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchUserDetails())
   }, [])
 
-  const userDetails = useSelector(state => state.user.userInfo);
-  console.log('data',userDetails)
+  const calculateAge = (birthdayString) => {
+    const birthDate = new Date(birthdayString);
+    const currentDate = new Date();
+    let age = currentDate.getFullYear() - birthDate.getFullYear();
+    if (
+      currentDate.getMonth() < birthDate.getMonth() ||
+      (currentDate.getMonth() === birthDate.getMonth() &&
+        currentDate.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  };
   return (
     <div>
-      <h1 className='services'>SERVICE-BRIDE</h1>;
-      <Container maxWidth="lg" sx={{ backgroundColor: 'white', borderRadius: '0.4rem', display: 'flex', justifyContent: 'center' }}>
-        <Card sx={{ maxWidth: 480, maxHeight: '14rem', p: 2, m: 4, borderRadius: '0.4rem', backgroundColor: '#e6e4f7', borderWidth: 'thin', borderColor: 'red' }} >
-          <CardContent>
-            <Box sx={{ flexGrow: 1 }}>
-              <Grid container spacing={2} columns={12}>
-                <CardHeader
-                  avatar={
-                    // <Avatar sx={{backgroundColor:'red'}} src="../../assets/male.png"/>
-                    <Avatar
-                      sx={{ backgroundColor: 'red' }}
-                      src="../../assets/male.png"
-                      alt="Male Avatar"
-                    />
-                  }
-                  title={
-                    <Typography variant="h5" sx={{ fontSize: '20px' }}>
-                      Shrimp and Chorizo Paella
-                    </Typography>
-                  }
-                  subheader="September 14, 2016"
-                />
-                <Grid item xs={12}>
-                  <Typography variant="body1" component="div" className={style.icon}>
-                    <LocationOnIcon sx={{ mr: 1 }} />
-                    <span >Location</span>
-                  </Typography>
-                </Grid>
-                <Grid container item xs={16} columns={12}>
-                  <Grid xs={4}>
-                    <Typography variant="body1" component="div" className={style.icon}>
-                      <CakeIcon sx={{ mr: 1 }} />
-                      Years: { }
-                    </Typography>
-                  </Grid>
-                  <Grid xs={4}>
-                    <Typography variant="body1" component="div" className={style.icon}>
-                      <PersonIcon sx={{ mr: 1 }} />
-                      Nationality: { }
-                    </Typography>
-                  </Grid>
-                  <Grid xs={4}>
-                    <Typography variant="body1" component="div" className={style.icon}>
-                      <LocalLibraryIcon sx={{ mr: 1 }} />
-                      Religion: { }
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid container item xs={16} columns={12}>
-                  <Grid xs={4}>
-                    <Typography variant="body1" component="div" className={style.icon}>
-                      <WorkIcon sx={{ mr: 1 }} />
-                      Designation: { }
-                    </Typography>
-                  </Grid>
-                  <Grid xs={4}>
-                    <Typography variant="body1" component="div" className={style.icon}>
-                      <SquareFootIcon sx={{ mr: 1 }} />
-                      Height
-                    </Typography>
-                  </Grid>
-                  <Grid xs={4}>
-                    <Typography variant="body1" component="div" className={style.icon}>
-                      <LanguageIcon sx={{ mr: 1 }} />
-                      Country: { }
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid item xs={12} sx={{ display: 'flex', alignItems: 'baseline', justifyContent: 'flex-end' }}>
-                  <Typography variant="body1" component="div" className={style.icon}>
-                    <NavLink>
-                      More Details
-                    </NavLink>
+      <h2 className={style.services}>BRIDES/මනමාලියෝ.</h2>
+      <Container maxWidth="lg" sx={{ backgroundColor: '#e6e9ff', borderRadius: '0.4rem', display: 'flex', justifyContent: 'center' }}>
+        {userDetails !== null ? (
+          <Grid container spacing={4} justifyContent="center">
+            {userDetails.userData.filter((value) => value.gender === 'female').
+            map((value, index) => (
+              <Grid item key={index} xs={12} sm={5} sx={{ mt:4,mb:4, ml:0.9 }}> {/* Show 2 cards per row on small screens and above */}
+                <Card sx={{ maxWidth: 480, maxHeight: '19rem', pl: 3, mt: 2, borderRadius: '0.4rem', backgroundColor: 'white', borderWidth: 'thin', borderColor: 'red' }}>
+                  <CardContent>
+                    <Box sx={{ flexGrow: 1 }}>
+                      <Grid key={index} container spacing={2} columns={12}>
+                        <CardHeader
+                          avatar={
+                            <Avatar
+                              sx={{ backgroundColor: 'red' }}
+                              src={femaleImg}
+                              alt="Male Avatar"
+                            />
+                          }
+                          title={
+                            <Typography variant="h5" sx={{ fontSize: '20px' }}>
+                              {value.firstName}
+                            </Typography>
+                          }
+                          subheader={moment(value.createdAt).format('YYYY/MM/DD')}
+                        />
+                        <Grid item xs={12}>
+                          <Typography variant="body1" component="div" className={style.icon}>
+                            <LocationOnIcon sx={{ mr: 1 }} />
+                            <span >{value.city}</span>
+                          </Typography>
+                        </Grid>
+                        <Grid container item xs={16} columns={12}>
+                          <Grid xs={4}>
+                            <Typography variant="body1" component="div" className={style.icon}>
+                              <CakeIcon sx={{ mr: 1 }} />
+                              {calculateAge(value.birthday)}
+                            </Typography>
+                          </Grid>
+                          <Grid xs={4}>
+                            <Typography variant="body1" component="div" className={style.icon}>
+                              <PersonIcon sx={{ mr: 1 }} />
+                              {value.ethnics}
+                            </Typography>
+                          </Grid>
+                          <Grid xs={4}>
+                            <Typography variant="body1" component="div" className={style.icon}>
+                              <LocalLibraryIcon sx={{ mr: 1 }} />
+                              {value.religion}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid container item xs={16} columns={12}>
+                          <Grid xs={4}>
+                            <Typography variant="body1" component="div" className={style.icon}>
+                              <WorkIcon sx={{ mr: 1 }} />
+                              {value.profession}
+                            </Typography>
+                          </Grid>
+                          <Grid xs={4}>
+                            <Typography variant="body1" component="div" className={style.icon}>
+                              <SquareFootIcon sx={{ mr: 1 }} />
+                              {value.height}
+                            </Typography>
+                          </Grid>
+                          <Grid xs={4}>
+                            <Typography variant="body1" component="div" className={style.icon}>
+                              <LanguageIcon sx={{ mr: 1 }} />
+                              {value.country}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12} sx={{ display: 'flex', alignItems: 'baseline', justifyContent: 'flex-end' }}>
+                          <Typography variant="body1" component="div" className={style.icon}>
+                            <NavLink>
+                              More Details
+                            </NavLink>
 
-                  </Typography>
-                </Grid>
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  </CardContent>
+                </Card>
               </Grid>
-
-            </Box>
-          </CardContent>
-
-        </Card>
+            ))}
+          </Grid>
+        ) : (
+          "No Details Found"
+        )}
       </Container>
     </div>
-  )
-}
-export default ServiceBride
+  );
+};
+
+export default ServiceBride;

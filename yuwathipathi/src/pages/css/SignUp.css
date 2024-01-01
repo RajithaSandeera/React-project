@@ -18,10 +18,11 @@ body{
   justify-content: center;
   align-items: center;
   text-align: center;
+  margin-top:1rem;
 }
 
 .register{
-  max-width: 978px;
+  max-width: 960px;
   width: 100vw;
   display:flex;
   border: 1px solid #e9ecef;
