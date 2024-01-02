@@ -28,7 +28,7 @@ const ServiceGroom = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchUserDetails())
-  }, [])
+  }, [dispatch])
 
   const calculateAge = (birthdayString) => {
     const birthDate = new Date(birthdayString);
@@ -49,7 +49,7 @@ const ServiceGroom = () => {
       <Container maxWidth="lg" sx={{ backgroundColor: '#e6e9ff', borderRadius: '0.4rem', display: 'flex', justifyContent: 'center' }}>
         {userDetails !== null ? (
           <Grid container spacing={4} justifyContent="center">
-            {userDetails.userData.filter((value) => value.gender === 'male').
+            {(userDetails.userData !== null && userDetails.userData !== undefined) && userDetails.userData.filter((value) => value.gender === 'male').
             map((value, index) => (
               <Grid item key={index} xs={12} sm={5} sx={{ mt:4,mb:4, ml:0.5 }}> {/* Show 2 cards per row on small screens and above */}
                 <Card sx={{ maxWidth: 480, maxHeight: '19rem', pl: 3, mt: 2, borderRadius: '0.4rem', backgroundColor: 'white', borderWidth: 'thin', borderColor: 'red' }}>

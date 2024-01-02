@@ -33,7 +33,6 @@ const UserDetails = () => {
         }
         refetch()
         dispatch(setUserToken(userToken))
-alert('userdetails')
     }, [data, dispatch, userToken])
 
     // const [value, setValue] = React.useState(dayjs('2022-04-17'));

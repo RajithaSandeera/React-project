@@ -46,20 +46,41 @@ const Navbar = (props) => {
   };
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        YUWATHIPATHI
-      </Typography>
+      <NavLink to="/" style={{ color: 'black', textDecoration: 'none' }}>
+        <Typography variant="h6" sx={{ my: 2, textDecoration: 'none' }}>
+          YUWATHIPATHI
+        </Typography>
+      </NavLink >
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+        {[
+          { text: 'Grooms', link: '/service-groom' },
+          { text: 'Bride', link: '/service-bride' },
+          { text: 'About Us', link: '/products' },
+          { text: userInfo !== null ? '' : 'Login', link: '/Login' },
+          {
+            text: userInfo === null ? 'SignUp' : 'Logout',
+            link: !userInfo === null && ('/SignUp'),
+            onClick: userInfo ? () => {
+              dispatch(logout());
+              // Add the navigation logic here if needed after logout
+            } : null,
+          },
+        ].map((item, index) => (
+          <ListItem key={index} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
+              <ListItemText>
+                <NavLink style={{ color: 'black', textDecoration: 'none' }} to={item.link}>
+                  {item.text}
+                </NavLink>
+              </ListItemText>
             </ListItemButton>
           </ListItem>
         ))}
       </List>
-    </Box>
+
+
+    </Box >
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -72,12 +93,12 @@ const Navbar = (props) => {
   });
   console.log('values', userInfo)
 
-
+  const conditionalClassName = userInfo === null ? style.navItemDesignSignUp : style.anotherClassName;
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <ThemeProvider theme={darkTheme}>
-        <AppBar color="custom" component="nav" sx={{ p:2 }}>
+        <AppBar color="custom" component="nav" sx={{ p: 2 }}>
           <Toolbar>
             <IconButton
               aria-label="open drawer"
@@ -87,7 +108,7 @@ const Navbar = (props) => {
             >
               <MenuIcon style={{ color: 'white' }} />
             </IconButton>
-            <NavLink to="/" style={{ textDecoration: 'none', color: 'inherit',width: '60%' }}>
+            <NavLink to="/" style={{ textDecoration: 'none', color: 'inherit', width: '60%' }}>
               <Typography
                 variant="h6"
                 component="div"
@@ -109,7 +130,7 @@ const Navbar = (props) => {
               {userInfo === null ? (
                 <NavLink className={style.navItemDesignSignUp} to='/SignUp'>SignUp</NavLink>
               ) : (
-                <NavLink className={style.navItemDesignSignUp} to='/SignUp' onClick={() => dispatch(logout())}>Logout</NavLink>
+                <NavLink className={conditionalClassName} to='/SignUp' onClick={() => dispatch(logout())}>Logout</NavLink>
               )}
             </Box>
           </Toolbar>
