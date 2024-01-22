@@ -29,15 +29,18 @@ const Login = () => {
 
   useEffect(() => {
     if (success === true) {
-      // navigate('/service')
+      navigate('/service')
+    }
+    if(error !== null){
       dispatch(
         alertActions.createAlert({
-          message: userInfo.message,
-          type: "success"
+          message: error,
+          type: "warning"
         })
       );  
     }
-  }, [navigate, userInfo])
+    
+  }, [navigate, userInfo,success, error])
   const submitLogin = (data) => {
     dispatch(userLogin(data))
   }

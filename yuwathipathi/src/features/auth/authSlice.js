@@ -64,7 +64,6 @@ const authSlice = createSlice({
       state.loading = false
       state.error = payload
       state.success = false
-      alert('payload'+ payload)
 
     },
     // User Profile

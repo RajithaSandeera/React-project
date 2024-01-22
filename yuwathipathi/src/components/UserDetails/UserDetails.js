@@ -19,35 +19,35 @@ import {
 
 
 const UserDetails = () => {
-    const { userInfo } = useSelector((state) => state.authApi)
-    const { success } = useSelector((state) => state.auth)
+    // const { userInfo } = useSelector((state) => state.authApi)
+    const { success, userInfo } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
-    const { data, isFetching, refetch } = useGetUserDetailsQuery('loggedUserDetails', {
-        pollingInterval: 90000,
-    });
-    const userToken = localStorage.getItem('userToken')
-        ? localStorage.getItem('userToken')
-        : null
-    useEffect(() => {
-        if (data) {
-            dispatch(setCredentials(data))
-        }else{
-            // window.location.href = '/login';
+    // const { data, isFetching, refetch } = useGetUserDetailsQuery('loggedUserDetails', {
+    //     pollingInterval: 90000,
+    // });
+    // const userToken = localStorage.getItem('userToken')
+    //     ? localStorage.getItem('userToken')
+    //     : null
+    // useEffect(() => {
+    //     if (data) {
+    //         dispatch(setCredentials(data))
+    //     }else{
+    //         // window.location.href = '/login';
 
-        }
-        refetch()
-        dispatch(setUserToken(userToken))
-    }, [data, dispatch, userToken])
+    //     }
+    //     refetch()
+    //     dispatch(setUserToken(userToken))
+    // }, [data, dispatch, userToken])
 
     useEffect(() =>{
         if(success === true )
         dispatch(
             alertActions.createAlert({
-              message: "Login Successful! 🤗",
+              message: userInfo.message,
               type: "success"
             })
           );  
-    },[success])
+    },[success, userInfo])
     // const [value, setValue] = React.useState(dayjs('2022-04-17'));
     const SESSION_CREATE_STEPS = ['Personal', 'Parents', 'Private', 'Review & Pay']
 
@@ -185,7 +185,7 @@ const UserDetails = () => {
                                             required
                                             id="outlined-required"
                                             placeholder='First Name'
-                                            sx={{ p: 2, width: '50%', textAlign: 'left' }}
+                                            sx={{ p: 2, width: '56%', textAlign: 'left' }}
                                             onChange={handleForm}
                                         />
                                     </Grid>
@@ -197,7 +197,7 @@ const UserDetails = () => {
                                             required
                                             id="outlined-required"
                                             placeholder='Last Name'
-                                            sx={{ p: 1.6, width: '50%', textAlign: 'left' }}
+                                            sx={{ p: 1.6, width: '55%', textAlign: 'left' }}
                                             onChange={handleForm}
 
                                         />
@@ -333,7 +333,7 @@ const UserDetails = () => {
                                             value={formDetails.profession}
                                             onChange={handleForm}
 
-                                            sx={{ p: 1.6, width: '50%', textAlign: 'left' }}
+                                            sx={{ p: 1.6, width: '55%', textAlign: 'left' }}
 
                                         />
                                     </Grid>

@@ -15,7 +15,7 @@ const ActionAlerts = () => {
       setShow(true);
       setTimeout(() => {
         setShow(false);
-      }, 3000);
+      }, 4000);
     }
   }, [alerts]);
 
