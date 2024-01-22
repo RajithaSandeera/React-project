@@ -4,6 +4,13 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import bgImg from '../assets/img1.jpg';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 // import Error from '../components/Error'
 // import Spinner from '../components/Spinner'
@@ -16,12 +23,18 @@ const RegisterScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm()
+    const [showPassword, setShowPassword] = React.useState(false);
+
 
     useEffect(() => {
         if (success) navigate('/login')
         if (userInfo) navigate('/service')
     }, [navigate, userInfo, success])
 
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
     const submitForm = (data) => {
         if (data.password !== data.confirmPassword) {
             alert('Password mismatch')
@@ -37,43 +50,90 @@ const RegisterScreen = () => {
                     <h2>Sign Up</h2>
                     <span>Register and Enjoy our service</span>
                     <form id='form' className="flex flex-col" onSubmit={handleSubmit(submitForm)}>
-                        {/* {error && <Error>{error}</Error>} */}
-                        <div className='form-group'>
-                            <input
-                                type='text'
-                                className='form-input'
-                                placeholder='Username'
+                        <FormControl sx={{ mb: 0.9 }} variant="outlined">
+                            <InputLabel htmlFor="outlined-adornment-password">Username</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-email"
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            edge="end"
+                                            size='small'
+                                            defaultValue="Small"
+                                        >
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                                label="Username"
                                 {...register('name')}
-                                required
                             />
-                        </div>
-                        <div className='form-group'>
-                            <input
-                                type='email'
-                                className='form-input'
-                                placeholder='Email'
+                        </FormControl>
+                        <FormControl sx={{ mb: 1 }} variant="outlined">
+                            <InputLabel htmlFor="outlined-adornment-password">Email</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-email"
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            edge="end"
+                                            size='small'
+                                            defaultValue="Small"
+                                        >
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                                label="Email"
                                 {...register('email')}
-                                required
                             />
-                        </div>
-                        <div className='form-group'>
-                            <input
-                                type='password'
-                                className='form-input'
-                                placeholder='Password'
+                        </FormControl>
+                        <FormControl sx={{ mb: 1 }} variant="outlined">
+                            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-password"
+                                type={showPassword ? 'text' : 'password'}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                            size='small'
+                                            defaultValue="Small"
+                                        >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                                label="Password"
                                 {...register('password')}
-                                required
                             />
-                        </div>
-                        <div className='form-group'>
-                            <input
-                                type='password'
-                                className='form-input'
-                                placeholder='Password'
+                        </FormControl>
+                        <FormControl sx={{ mb: 1 }} variant="outlined">
+                            <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-password"
+                                type={showPassword ? 'text' : 'password'}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                            size='small'
+                                            defaultValue="Small"
+                                        >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                                label="confirmPassword"
                                 {...register('confirmPassword')}
-                                required
                             />
-                        </div>
+                        </FormControl>
                         <button type='submit' className='btn' disabled={loading}>
                             {/* {loading ? <Spinner /> : 'Register'} */}
                             Sign Up

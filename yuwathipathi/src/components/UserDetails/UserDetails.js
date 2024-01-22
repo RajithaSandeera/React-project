@@ -2,7 +2,8 @@ import React,{ useEffect } from 'react'
 import { logout, setCredentials, setUserToken } from '../../features/auth/authSlice'
 import { useGetUserDetailsQuery } from '../../app/services/auth/authService'
 import { useDispatch, useSelector } from 'react-redux'
-
+import Alerts from '../../helpers/alertBox'
+import { alertActions } from '../../features/auth/alertSlice'
 import {
     Box,
     Container,
@@ -15,14 +16,14 @@ import {
     FormLabel,
     MenuItem, Grid,
 } from '@mui/material'
-// import dayjs from 'dayjs';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 
 const UserDetails = () => {
     const { userInfo } = useSelector((state) => state.authApi)
+    const { success } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
-    const { data, isFetching, refetch } = useGetUserDetailsQuery('userDetails', {
-        pollingInterval: 9000,
+    const { data, isFetching, refetch } = useGetUserDetailsQuery('loggedUserDetails', {
+        pollingInterval: 90000,
     });
     const userToken = localStorage.getItem('userToken')
         ? localStorage.getItem('userToken')
@@ -30,11 +31,23 @@ const UserDetails = () => {
     useEffect(() => {
         if (data) {
             dispatch(setCredentials(data))
+        }else{
+            // window.location.href = '/login';
+
         }
         refetch()
         dispatch(setUserToken(userToken))
     }, [data, dispatch, userToken])
 
+    useEffect(() =>{
+        if(success === true )
+        dispatch(
+            alertActions.createAlert({
+              message: "Login Successful! 🤗",
+              type: "success"
+            })
+          );  
+    },[success])
     // const [value, setValue] = React.useState(dayjs('2022-04-17'));
     const SESSION_CREATE_STEPS = ['Personal', 'Parents', 'Private', 'Review & Pay']
 
@@ -148,16 +161,20 @@ const UserDetails = () => {
 
     return (
         <React.Fragment>
+            <Alerts />
             <Container sx={{ maxWidth: 500, maxHeight: 800, mt: 4, pt: 4 }}>
                 <form action="/action_page.php" method="get" id="formDetails">
                     <Box >
                         <Card sx={{ m: 4 }}>
+
                             <Typography
                                 sx={{ pt: 4, pl: 6, fontWeight: 600, fontSize: '20px' }}>
                                 Basic
                             </Typography>
+
                             <Alert severity="info" sx={{ m: '1rem', maxHeight: '5%', width: '80%', ml: 6 }}>
-                                Please fill these details, This will helpful yourself and others to find the best matching partner                                    </Alert>
+                                Please fill these details, This will helpful yourself and others to find the best matching partner                                    
+                                </Alert>
                             <FormControl sx={{ pl: 4 }}>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                                     <Grid item xs={6}>

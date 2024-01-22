@@ -44,7 +44,7 @@ body{
 
 #form >  input, .btn{
   border: 1px solid #e9ecef;
-  padding: .9em 1em;
+  padding: .8em 1em;
 }
 
 #form > input:focus{
@@ -54,8 +54,15 @@ body{
 #form > .btn{
   background-color: #003049;
   color: #e9ecef;
-  font-size: 1em;
+  font-size: 1.1rem;
   cursor: pointer;
+  width: 322px;
+  border-radius: 4px;
+  transition: background-color 0.3 ease, color 0.3 ease;
+}
+#form > .btn:hover {
+  background-color: #001c30;
+  color: #ffffff;
 }
 
 .flex{

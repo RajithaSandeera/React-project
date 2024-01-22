@@ -21,23 +21,28 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useGetUserDetailsQuery } from '../../app/services/auth/authService';
 import { logout, setCredentials } from '../../features/auth/authSlice';
 
-
-
 const drawerWidth = 220;
-const navItems = ['Brides', 'Grooms', 'About Us', 'Login'];
-
 const Navbar = (props) => {
-
-  const { userInfo } = useSelector((state) => state.auth);
+  
+  // const { userToken } = useSelector((state) => state.auth);
+  const userToken = localStorage.getItem('userToken')
+  ? localStorage.getItem('userToken')
+  : null
   const dispatch = useDispatch();
-  const { data, isFetching } = useGetUserDetailsQuery('userDetails', {
+  const { data, isFetching } = useGetUserDetailsQuery('loggedUserDetails', {
     pollingInterval: 900000, // 15mins
   })
   useEffect(() => {
     if (data) {
       dispatch(setCredentials(data))
     }
-  }, [data, dispatch]);
+    
+  }, [data]);
+ 
+  const handleLogout = () => {
+    dispatch(logout());
+    window.location.reload();
+  };
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -57,13 +62,12 @@ const Navbar = (props) => {
           { text: 'Grooms', link: '/service-groom' },
           { text: 'Bride', link: '/service-bride' },
           { text: 'About Us', link: '/products' },
-          { text: userInfo !== null ? '' : 'Login', link: '/Login' },
+          { text: userToken !== null ? '' : 'Login', link: '/Login' },
           {
-            text: userInfo === null ? 'SignUp' : 'Logout',
-            link: !userInfo === null && ('/SignUp'),
-            onClick: userInfo ? () => {
-              dispatch(logout());
-              // Add the navigation logic here if needed after logout
+            text: userToken === null ? 'SignUp' : 'Logout',
+            link: !userToken === null && ('/SignUp'),
+            onClick: userToken ? () => {
+              handleLogout()
             } : null,
           },
         ].map((item, index) => (
@@ -91,9 +95,9 @@ const Navbar = (props) => {
       },
     },
   });
-  console.log('values', userInfo)
+  console.log('values', userToken)
 
-  const conditionalClassName = userInfo === null ? style.navItemDesignSignUp : style.anotherClassName;
+  const conditionalClassName = userToken === null ? style.navItemDesignSignUp : style.anotherClassName;
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -126,11 +130,11 @@ const Navbar = (props) => {
               <NavLink className={style.navItemDesign} to='/service-groom'>Grooms</NavLink>
               <NavLink className={style.navItemDesign} to='/service-bride'>Brides</NavLink>
               <NavLink className={style.navItemDesign} to='/products'>About Us</NavLink>
-              {!userInfo && <NavLink className={style.navItemDesign} to='/Login'>Login</NavLink>}
-              {userInfo === null ? (
+              {!userToken && <NavLink className={style.navItemDesign} to='/Login'>Login</NavLink>}
+              {userToken === null ? (
                 <NavLink className={style.navItemDesignSignUp} to='/SignUp'>SignUp</NavLink>
               ) : (
-                <NavLink className={conditionalClassName} to='/SignUp' onClick={() => dispatch(logout())}>Logout</NavLink>
+              <NavLink className={conditionalClassName} to='/Login' onClick={() => handleLogout()}>Logout</NavLink>
               )}
             </Box>
           </Toolbar>

@@ -23,7 +23,9 @@ function App() {
         <Route path='/service-bride' element={<ServiceBride />} />
         {/* </Route> */}
         <Route path='/service-groom' element={<ServiceGroom />} />
+        <Route element={<ProtectedRoute/> } >
         <Route path='/products' element={<Products />} />
+        </Route>
         <Route path='/signUp' element={<SignUp />} />
         <Route path='/login' element={<Login />} />
         <Route path='/dashboard' element={<Dashboard />} />

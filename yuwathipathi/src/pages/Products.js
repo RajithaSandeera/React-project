@@ -1,26 +1,32 @@
 import React, { useEffect } from 'react'
 import { logout, setCredentials, setUserToken } from '../features/auth/authSlice'
+import { userProfile } from '../features/auth/authAction'
 import { useGetUserDetailsQuery } from '../app/services/auth/authService'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import style from './Products.module.css'
 
 const Products = () => {
-  const { userInfo } = useSelector((state) => state.authApi)
+  const { userInfo } = useSelector((state) => state.auth)
+  const { loggedUserInfo } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
-  const { data, isFetching, refetch } = useGetUserDetailsQuery('userDetails', {
+  const { data, isFetching, refetch } = useGetUserDetailsQuery('loggedUserDetails', {
     pollingInterval: 900000,
   });
-
+console.log('loggedUserInfo', loggedUserInfo)
   const userToken = localStorage.getItem('userToken')
-    ? localStorage.getItem('userToken')
-    : null
+  ? localStorage.getItem('userToken')
+  : null
 
   useEffect(() => {
     if (data) {  
       dispatch(setCredentials(data))
+    }else{
+      
     }
     refetch()
+    dispatch(userProfile())
     dispatch(setUserToken(userToken))
 
   }, [data, dispatch, userToken])
@@ -28,7 +34,7 @@ const Products = () => {
 
   return (
     <header>
-      <div className='header-status'>
+      <div className={style.headerStatus}>
         <span>
           {isFetching
             ? `Fetching your profile...`

@@ -50,10 +50,11 @@ export const userLogin = createAsyncThunk(
       return data
     } catch (error) {
       // return custom error message from API if any
+      alert('error111' + error)
       if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message)
+        return rejectWithValue(error)
       } else {
-        return rejectWithValue(error.message)
+        return rejectWithValue(error)
       }
     }
   }
@@ -74,8 +75,7 @@ export const userProfile = createAsyncThunk(
         { email, password },
         config
       )
-      // store user's token in local storage
-      localStorage.setItem('userToken', data.access_token)
+    console.log('data', data)
       return data
     } catch (error) {
       // return custom error message from API if any
@@ -102,7 +102,6 @@ export const fetchUserDetails = createAsyncThunk(
         `${backendURL}/api/userDetails`,
         config
       )
-      localStorage.setItem('userToken', data.access_token)
       return data
     }
     catch (error) {
@@ -114,35 +113,3 @@ export const fetchUserDetails = createAsyncThunk(
     }
   }
 )
-
-// This is for refreshPage
-// export const userRefresh = createAsyncThunk(
-//   'auth/refresh',
-//   async ({ email, password }, { rejectWithValue }) => {
-//     try {
-//       // configure header's Content-Type as JSON
-//       const config = {
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       }
-//       const { data } = await axios.get(
-//         `${backendURL}/api/refresh`,
-//         { token },
-//         config
-//       )
-//       // store user's token in local storage
-//       localStorage.setItem('userToken', data.access_token)
-//       return data
-//     } catch (error) {
-//       // return custom error message from API if any
-//       if (error.response && error.response.data.message) {
-//         return rejectWithValue(error.response.data.message)
-//       } else {
-//         return rejectWithValue(error.message)
-//       }
-//     }
-//   }
-// )
-
-

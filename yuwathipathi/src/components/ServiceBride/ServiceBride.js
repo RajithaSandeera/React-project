@@ -40,10 +40,6 @@ const ServiceBride = () => {
     }
     return age;
   };
-  console.log('data', userDetails)
-  // console.log('data1', userDetails.userData)
-
-
   return (
     <div>
       <h2 className={style.services}>BRIDES/මනමාලියෝ.</h2>

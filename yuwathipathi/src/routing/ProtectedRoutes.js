@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink, Outlet } from 'react-router-dom'
 import Login from '../pages/Login'
@@ -8,7 +8,15 @@ import Unauthorize from '../assets/Unauthorize.jpg'
 
 const ProtectedRoute = () => {
   const { userInfo } = useSelector((state) => state.auth)
-
+  const userToken = localStorage.getItem('userToken') ? localStorage.getItem('userToken') :  null
+  const loggedUser = useSelector((state) => state.authApi.queries)
+// const [authorization, setAuthorization] = useState(false);
+  // useEffect(() =>{
+  //   if(userInfo !== null && userInfo.status !== 'fail'){
+  //     setAuthorization(true)
+  //   }
+  // },[userInfo !== null && userInfo.status])
+  console.log('loggedUser', loggedUser)
   // show unauthorized screen if no user is found in redux store
   if (!userInfo) {
     return (
