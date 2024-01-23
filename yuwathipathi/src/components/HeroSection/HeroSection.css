@@ -40,6 +40,10 @@ video {
   .hero-btns .btn {
     margin: 6px;
   }
+
+  .hero-btns .btn:hover{
+    background-color: #d6d8db;
+  }
   
   .fa-play-circle {
     margin-left: 4px;

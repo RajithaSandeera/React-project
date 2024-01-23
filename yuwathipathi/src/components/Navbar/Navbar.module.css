@@ -207,3 +207,55 @@
     margin-left:6.3rem;
     
   }
+
+  .homeButton:hover{
+    color: #a4a5a7;
+  }
+
+  .navItemDesignSignUp:hover{
+    background-color: #a4a5a7;
+  }
+  .navItemDesign,
+  .navItemDesign:after,
+  .navItemDesign:before{
+    transition: all .5s;
+  }
+  .homeButton,
+  .homeButton:after,
+  .homeButton:before{
+    transition: all .5s;
+  }
+  .navItemDesignSignUp,
+  .navItemDesignSignUp:after,
+  .navItemDesignSignUp:before{
+    transition: all .5s;
+  }
+ 
+  .navItemDesign:hover {
+    color: #a4a5a7;
+  }
+  
+
+
+.navItemDesign{
+position: relative;
+}
+
+
+.navItemDesign:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: #aaa;
+  height: 0.1px;
+}
+
+.navItemDesign:hover:after {
+  width: 100%;
+}
+

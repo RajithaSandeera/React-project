@@ -116,6 +116,7 @@ const Navbar = (props) => {
               <Typography
                 variant="h6"
                 component="div"
+                className={style.homeButton}
                 sx={{
                   flexGrow: 1,
                   display: { xs: 'none', sm: 'block' },
@@ -127,7 +128,9 @@ const Navbar = (props) => {
               </Typography>
             </NavLink>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }} >
-              <NavLink className={style.navItemDesign} to='/service-groom'>Grooms</NavLink>
+            <NavLink className={style.navItemDesign} to='/service-groom'>
+                <span className={style.navItemText}>Grooms</span>
+              </NavLink>
               <NavLink className={style.navItemDesign} to='/service-bride'>Brides</NavLink>
               <NavLink className={style.navItemDesign} to='/products'>About Us</NavLink>
               {!userToken && <NavLink className={style.navItemDesign} to='/Login'>Login</NavLink>}

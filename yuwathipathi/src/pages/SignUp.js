@@ -51,7 +51,7 @@ const RegisterScreen = () => {
                     <span>Register and Enjoy our service</span>
                     <form id='form' className="flex flex-col" onSubmit={handleSubmit(submitForm)}>
                         <FormControl sx={{ mb: 0.9 }} variant="outlined">
-                            <InputLabel htmlFor="outlined-adornment-password">Username</InputLabel>
+                            <InputLabel htmlFor="outlined-adornment-username">Username</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-email"
                                 endAdornment={

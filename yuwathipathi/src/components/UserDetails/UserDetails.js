@@ -40,7 +40,7 @@ const UserDetails = () => {
     // }, [data, dispatch, userToken])
 
     useEffect(() =>{
-        if(success === true )
+        if(success === true)
         dispatch(
             alertActions.createAlert({
               message: userInfo.message,

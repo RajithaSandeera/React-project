@@ -30,6 +30,7 @@ const Login = () => {
   useEffect(() => {
     if (success === true) {
       navigate('/service')
+      window.location.reload()
     }
     if(error !== null){
       dispatch(
@@ -55,17 +56,15 @@ const Login = () => {
           <span>Provide Valid Details and Enjoy our service</span>
           <form id='form' onSubmit={handleSubmit(submitLogin)} className="flex flex-col">
             <FormControl sx={{ mb: 1 }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">Email</InputLabel>
+              <InputLabel>Email</InputLabel>
               <OutlinedInput
-                id="outlined-adornment-email"
+                // id="outlined-adornment-email"
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
                       onMouseDown={handleMouseDownPassword}
-                      edge="end"
                       size='small'
-                      defaultValue="Small"
                     >
                     </IconButton>
                   </InputAdornment>
